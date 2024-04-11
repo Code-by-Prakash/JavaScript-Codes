@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyCalc</title>
+    <style>
+     .calccontainer
+     {
+        margin-left: 670px;
+     }
+        .consolediv {
+            width: 490px;
+            min-height: 100px;
+            border: 1px solid black;
+            background-color: gray;
+            color: white;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            padding-right: 10px;
+            border-radius:5px 5px 0px 0px  ;
+            margin-top: 100px;
+        }
+
+        .calc {
+            width: 500px;
+            border: 1px solid black;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            text-align: center;
+            align-items: center;
+            border-radius: 0px 0px 5px 5px;
+            background-color: azure;
+
+        }
+
+        .calcitem {
+            border: 1px solid gray;
+            border-radius: 5px;
+            margin: 10px;
+            cursor: pointer;
+            height: 70px;
+        }
+
+        .calcitem:hover {
+            background-color: aquamarine;
+        }
+
+        .equalto {
+            background-color: aquamarine;
+            grid-column: 3/5;
+
+        }
+        .mycalc
+        {
+            text-align: center;
+            background-color: rgb(0, 0, 0);
+            color: yellow;
+            margin-top: 0;
+            padding: 15px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        body
+        {
+            background-color: aliceblue;
+           
+        }
+    </style>
+</head>
+
+<body>
+<h1 class="mycalc" >My Calc</h1>
+    <div class="calccontainer">
+        <div class="consolediv">
+            <h1 id="console"></h1>
+        </div>
+        <div class="calc">
+            <button class="calcitem" onclick="clearall()" id="clear">AC</button>
+            <button class="calcitem" onclick="entered(event)" value="%" id="mod">%</button>
+
+            <button class="calcitem" onclick="back()" id="back">⌫</button>
+            <button class="calcitem" onclick="entered(event)" value="+" id="add">+ </button>
+            <button class="calcitem" onclick="entered(event)" value="1" id="one">1</button>
+            <button class="calcitem" onclick="entered(event)" value="2" id="two">2</button>
+            <button class="calcitem" onclick="entered(event)" value="3" id="three">3</button>
+            <button class="calcitem" onclick="entered(event)" value="-" id="sub">-</button>
+            <button class="calcitem" onclick="entered(event)" value="4" id="four">4</button>
+            <button class="calcitem" onclick="entered(event)" value="5" id="five">5</button>
+            <button class="calcitem" onclick="entered(event)" value="6" id="six">6</button>
+            <button class="calcitem" onclick="entered(event)" value="*" id="mul">*</button>
+            <button class="calcitem" onclick="entered(event)" value="7" id="seven">7</button>
+            <button class="calcitem" onclick="entered(event)" value="8" id="eight">8</button>
+            <button class="calcitem" onclick="entered(event)" value="9" id="nine">9</button>
+            <button class="calcitem" onclick="entered(event)" value="/" id="div">/</button>
+            <button class="calcitem" onclick="entered(event)" value="." id="dot"><b>.</b></button>
+            <button class="calcitem" onclick="entered(event)" value="0" id="zero">0</button>
+            <button class="calcitem equalto" onclick="getresult()" id="result">=</button>
+        </div>
+    </div>
+
+    <script>
+        var displayval = document.getElementById("console")
+
+        function entered(event) {
+            var bvalue = event.target.value
+            displayval.append(bvalue)
+
+        }
+
+        function clearall() {
+            displayval.textContent = ""
+        }
+        function back() {
+            newvalue = displayval.textContent.slice(0, -1)
+            displayval.textContent = newvalue
+        }
+        function getresult() {
+           
+               Percentage = displayval.textContent;
+               BeforePerc = Percentage.slice(0,-1)
+               console.log(BeforePerc);
+               function containsNumbers(str)
+               {
+                return /^[\d.]+$/.test(str)
+               }
+               console.log("Contain"+containsNumbers(BeforePerc));
+               
+                if(Percentage.at(-1)=="%" && containsNumbers(BeforePerc)==true)
+                {
+                    calcPerc = BeforePerc / 100;
+                    displayval.innerText = calcPerc;
+                }
+                else{
+                    try
+                    {
+                    var result = eval(displayval.textContent)
+                displayval.textContent = result
+                    }
+                    catch
+                    {
+                        displayval.textContent = "Invalid Expression"
+                    }
+                }
+
+
+              
+            }
+           
+    </script>
+</body>
+
+</html>
